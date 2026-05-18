@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Meine To-do-Liste</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; }
+    h1 { color: #333; }
+    input { padding: 8px; width: 70%; font-size: 16px; }
+    button { padding: 8px 16px; font-size: 16px; cursor: pointer; }
+    ul { list-style: none; padding: 0; margin-top: 20px; }
+    li { padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
+    li.erledigt span { text-decoration: line-through; color: #999; }
+    .loeschen { background: none; border: none; color: red; cursor: pointer; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>Meine To-do-Liste</h1>
+  <input type="text" id="eingabe" placeholder="Neue Aufgabe...">
+  <button onclick="hinzufuegen()">Hinzufügen</button>
+  <ul id="liste"></ul>
+
+  <script>
+    function hinzufuegen() {
+      const eingabe = document.getElementById('eingabe');
+      const text = eingabe.value.trim();
+      if (!text) return;
+
+      const li = document.createElement('li');
+      li.innerHTML = `<span onclick="this.parentElement.classList.toggle('erledigt')">${text}</span>
+                      <button class="loeschen" onclick="this.parentElement.remove()">✕</button>`;
+      document.getElementById('liste').appendChild(li);
+      eingabe.value = '';
+    }
+
+    document.getElementById('eingabe').addEventListener('keypress', e => {
+      if (e.key === 'Enter') hinzufuegen();
+    });
+  </script>
+</body>
+</html>
